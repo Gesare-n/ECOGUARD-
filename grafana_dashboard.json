@@ -1,0 +1,286 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Acoustic Guardian - Forest Protection Dashboard",
+    "tags": ["acoustic-guardian", "conservation", "iot"],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 0,
+    "refresh": "5s",
+    "panels": [
+      {
+        "id": 1,
+        "type": "grafana-worldmap-panel",
+        "title": "Sensor Locations & Threat Detection",
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 9
+        },
+        "datasource": "InfluxDB",
+        "targets": [
+          {
+            "query": "from(bucket: \"acoustic-guardian\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"acoustic_guardian\" and r._field == \"gps_coordinates\")\n  |> last()",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "center": "(0°, 0°)",
+          "zoom": 1,
+          "maxDataPoints": 1,
+          "mapZoomByRadius": false,
+          "showZoomControl": true,
+          "esGeoPoint": "gps_coordinates",
+          "esMetric": "threat_level",
+          "esLocationName": "device_id",
+          "esTags": "threat_type"
+        },
+        "circleOptions": {
+          "radius": 5,
+          "color": {
+            "fixed": "#FF0000"
+          }
+        },
+        "locationData": "table",
+        "mapCenter": "custom",
+        "initialZoom": 2
+      },
+      {
+        "id": 2,
+        "type": "stat",
+        "title": "Time Safe (Hours)",
+        "gridPos": {
+          "x": 12,
+          "y": 0,
+          "w": 6,
+          "h": 3
+        },
+        "datasource": "InfluxDB",
+        "targets": [
+          {
+            "query": "from(bucket: \"acoustic-guardian\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"acoustic_guardian\" and r._field == \"time_safe\")\n  |> last()\n  |> map(fn: (r) => ({ r with _value: r._value / 3600.0 }))",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 3,
+        "type": "timeseries",
+        "title": "Threat Detection Timeline",
+        "gridPos": {
+          "x": 12,
+          "y": 3,
+          "w": 12,
+          "h": 6
+        },
+        "datasource": "InfluxDB",
+        "targets": [
+          {
+            "query": "from(bucket: \"acoustic-guardian\")\n  |> range(start: -24h)\n  |> filter(fn: (r) => r._measurement == \"acoustic_guardian\" and r._field == \"threat_detected\")",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "type": "geomap",
+        "title": "Historical Deforestation Layer (Mockup)",
+        "gridPos": {
+          "x": 0,
+          "y": 9,
+          "w": 12,
+          "h": 9
+        },
+        "options": {
+          "basemap": {
+            "name": "OpenStreetMap",
+            "type": "osm-standard"
+          },
+          "controls": {
+            "mouseWheelZoom": true,
+            "showAttribution": true,
+            "showDebug": false,
+            "showMeasure": false,
+            "showScale": false,
+            "showZoom": true
+          },
+          "layers": [
+            {
+              "config": {
+                "hideEmpty": false,
+                "hideZero": false,
+                "layer": {
+                  "name": "Deforestation Areas",
+                  "type": "markers",
+                  "config": {
+                    "style": {
+                      "color": {
+                        "fixed": "dark-orange"
+                      },
+                      "opacity": 0.4,
+                      "rotation": {
+                        "fixed": 0,
+                        "max": 360,
+                        "min": -360,
+                        "mode": "mod"
+                      },
+                      "size": {
+                        "fixed": 5,
+                        "max": 30,
+                        "min": 2
+                      },
+                      "symbol": {
+                        "fixed": "img/icons/marker/circle.svg",
+                        "mode": "fixed"
+                      },
+                      "textConfig": {
+                        "fontSize": 12,
+                        "offsetX": 0,
+                        "offsetY": 0,
+                        "textAlign": "center",
+                        "textBaseline": "middle"
+                      }
+                    }
+                  }
+                }
+              },
+              "location": {
+                "mode": "auto"
+              },
+              "name": "Deforestation Areas",
+              "tooltip": true,
+              "type": "markers"
+            }
+          ]
+        }
+      },
+      {
+        "id": 5,
+        "type": "geomap",
+        "title": "High-Risk Logging Model (Mockup)",
+        "gridPos": {
+          "x": 12,
+          "y": 9,
+          "w": 12,
+          "h": 9
+        },
+        "options": {
+          "basemap": {
+            "name": "OpenStreetMap",
+            "type": "osm-standard"
+          },
+          "controls": {
+            "mouseWheelZoom": true,
+            "showAttribution": true,
+            "showDebug": false,
+            "showMeasure": false,
+            "showScale": false,
+            "showZoom": true
+          },
+          "layers": [
+            {
+              "config": {
+                "hideEmpty": false,
+                "hideZero": false,
+                "layer": {
+                  "name": "High-Risk Areas",
+                  "type": "markers",
+                  "config": {
+                    "style": {
+                      "color": {
+                        "fixed": "red"
+                      },
+                      "opacity": 0.3,
+                      "rotation": {
+                        "fixed": 0,
+                        "max": 360,
+                        "min": -360,
+                        "mode": "mod"
+                      },
+                      "size": {
+                        "fixed": 5,
+                        "max": 30,
+                        "min": 2
+                      },
+                      "symbol": {
+                        "fixed": "img/icons/marker/circle.svg",
+                        "mode": "fixed"
+                      },
+                      "textConfig": {
+                        "fontSize": 12,
+                        "offsetX": 0,
+                        "offsetY": 0,
+                        "textAlign": "center",
+                        "textBaseline": "middle"
+                      }
+                    }
+                  }
+                }
+              },
+              "location": {
+                "mode": "auto"
+              },
+              "name": "High-Risk Areas",
+              "tooltip": true,
+              "type": "markers"
+            }
+          ]
+        }
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    }
+  }
+}
