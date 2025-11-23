@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "created_date": "2025-11-23T05:13:38.006006",
+    "location": "Kenya Forest Service Nursery Network",
+    "total_nurseries": 5
+  },
+  "nurseries": [
+    {
+      "id": "NUR-001",
+      "name": "Karura Forest Nursery",
+      "location": "Karura Forest, Nairobi",
+      "coordinates": {
+        "lat": -1.2723,
+        "lng": 36.808
+      },
+      "species": [
+        {
+          "name": "Markhamia lutea",
+          "count": 500,
+          "stage": "Ready for planting",
+          "last_updated": "2024-01-15"
+        },
+        {
+          "name": "Croton megalocarpus",
+          "count": 300,
+          "stage": "Growing",
+          "last_updated": "2024-01-15"
+        }
+      ],
+      "total_capacity": 1000,
+      "current_stock": 800
+    },
+    {
+      "id": "NUR-002",
+      "name": "Ngong Forest Nursery",
+      "location": "Ngong Forest, Nairobi",
+      "coordinates": {
+        "lat": -1.35,
+        "lng": 36.7
+      },
+      "species": [
+        {
+          "name": "Juniperus procera",
+          "count": 800,
+          "stage": "Ready for planting",
+          "last_updated": "2024-01-15"
+        }
+      ],
+      "total_capacity": 1500,
+      "current_stock": 800
+    }
+  ]
+}

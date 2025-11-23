@@ -1,5 +1,5 @@
 """
-Acoustic Guardian - Run All Dashboards
+EcoGuard - Run All Dashboards
 
 Script to start all Streamlit dashboards simultaneously with proper port allocation.
 """
@@ -12,7 +12,7 @@ import os
 def run_all_dashboards():
     """Run all Streamlit dashboards simultaneously with proper port allocation."""
     
-    print("🌳 Acoustic Guardian - Starting All Dashboards")
+    print("🌳 EcoGuard - Starting All Dashboards")
     print("=" * 50)
     
     # Dashboard configurations with ports

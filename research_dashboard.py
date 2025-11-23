@@ -1,5 +1,5 @@
 """
-Acoustic Guardian - Research Dashboard
+EcoGuard - Research Dashboard
 
 Advanced analytics dashboard for research institutions like KEFRI and DeKUT
 focused on environmental modeling and innovation.
@@ -18,7 +18,7 @@ from scipy import stats
 
 # Set page config
 st.set_page_config(
-    page_title="Acoustic Guardian - Research Dashboard",
+    page_title="EcoGuard - Research Dashboard",
     page_icon="🌳",
     layout="wide"
 )
@@ -81,7 +81,7 @@ def generate_research_data(days=30):
 df_research = generate_research_data(90)  # 90 days of data
 
 # Sidebar
-st.sidebar.title("🌳 Acoustic Guardian")
+st.sidebar.title("🌳 EcoGuard")
 st.sidebar.markdown("### Research Dashboard")
 
 # Research focus area
@@ -114,7 +114,7 @@ selected_ecosystems = st.sidebar.multiselect(
 )
 
 # Main dashboard
-st.title("🌳 Acoustic Guardian - Research & Environmental Analytics")
+st.title("🌳 EcoGuard - Research & Environmental Analytics")
 st.markdown("### Advanced environmental modeling and data analysis for research institutions")
 st.markdown("---")
 
@@ -410,5 +410,5 @@ KEFRI and DeKUT researchers can use this dashboard to:
 
 # Footer
 st.markdown("---")
-st.markdown("🌳 Acoustic Guardian - Advancing environmental research through acoustic intelligence")
+st.markdown("🌳 EcoGuard - Advancing environmental research through acoustic intelligence")
 st.markdown(f"Data period: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")

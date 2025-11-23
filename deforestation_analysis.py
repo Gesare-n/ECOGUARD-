@@ -1,5 +1,5 @@
 """
-Acoustic Guardian - Deforestation Analysis Dashboard
+EcoGuard - Deforestation Analysis Dashboard
 
 This dashboard provides in-depth analysis of deforestation patterns with a focus on
 Nairobi's forest areas and data-driven insights.
@@ -15,7 +15,7 @@ import random
 
 # Set page config
 st.set_page_config(
-    page_title="Acoustic Guardian - Deforestation Analysis",
+    page_title="EcoGuard - Deforestation Analysis",
     page_icon="🌳",
     layout="wide"
 )
@@ -85,7 +85,7 @@ FOREST_INFO = {
 }
 
 # Sidebar
-st.sidebar.title("🌳 Acoustic Guardian")
+st.sidebar.title("🌳 EcoGuard")
 st.sidebar.markdown("### Deforestation Analysis")
 
 # Analysis type selector
@@ -109,7 +109,7 @@ selected_forests = st.sidebar.multiselect(
 )
 
 # Main dashboard
-st.title("🌳 Acoustic Guardian - Deforestation Analysis Dashboard")
+st.title("🌳 EcoGuard - Deforestation Analysis Dashboard")
 st.markdown("### Data-driven insights into forest loss and conservation efforts in Nairobi")
 
 # Filter data based on selections
@@ -359,5 +359,5 @@ st.dataframe(
 
 # Footer
 st.markdown("---")
-st.markdown("🌳 Acoustic Guardian - Providing data-driven insights for forest conservation")
+st.markdown("🌳 EcoGuard - Providing data-driven insights for forest conservation")
 st.markdown("Data sources: Mock data based on realistic deforestation patterns in Nairobi")

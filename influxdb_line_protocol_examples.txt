@@ -1,0 +1,6 @@
+# InfluxDB Line Protocol Examples for Kenya Forest Data
+
+forest_boundaries,forest_name="Karura Forest",forest_type="Urban Forest" area_km2=17.5,lat=-1.2723,lng=36.8080 1634567890
+deforestation_risk,forest_name="Karura Forest" risk_score=0.67,urban_proximity=0.9,accessibility=0.8,historical_loss=0.3 1634567890
+biodiversity,forest_name="Kakamega Forest",species_type="Bird" species_count=200,conservation_status="High" 1634567890
+sensor_deployment,forest_name="Uhuru Park" priority=9,reason="High risk urban area",recommended_sensors=3 1634567890

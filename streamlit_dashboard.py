@@ -9,7 +9,7 @@ from streamlit_folium import st_folium
 
 # Set page config
 st.set_page_config(
-    page_title="Acoustic Guardian - Forest Protection",
+    page_title="EcoGuard - Forest Protection",
     page_icon="🌳",
     layout="wide"
 )
@@ -75,7 +75,7 @@ def simulate_heartbeat():
     return status_data
 
 # Sidebar
-st.sidebar.title("Acoustic Guardian")
+st.sidebar.title("EcoGuard")
 st.sidebar.markdown("Forest Protection System")
 
 # Simulation controls
@@ -97,7 +97,7 @@ if st.sidebar.button("🔄 Reset System"):
     st.sidebar.success("System reset!")
 
 # Main dashboard
-st.title("🌳 Acoustic Guardian - Forest Protection Dashboard")
+st.title("🌳 EcoGuard - Forest Protection Dashboard")
 
 # Metrics row
 col1, col2, col3, col4 = st.columns(4)
@@ -147,7 +147,7 @@ with col1:
     folium.Marker(
         location=[-3.4653, -62.2159],
         popup=f"Sensor AG-001<br>Last Detection: {st.session_state.last_detection or 'None'}",
-        tooltip="Acoustic Guardian Sensor",
+        tooltip="EcoGuard Sensor",
         icon=folium.Icon(color='green' if st.session_state.time_safe > 0 else 'red')
     ).add_to(m)
     
@@ -225,4 +225,4 @@ with tab3:
 
 # Footer
 st.markdown("---")
-st.markdown("🌳 Acoustic Guardian - Protecting forests with AI-powered acoustic monitoring")
+st.markdown("🌳 EcoGuard - Protecting forests with AI-powered acoustic monitoring")

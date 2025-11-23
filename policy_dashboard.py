@@ -1,5 +1,5 @@
 """
-Acoustic Guardian - Policy & Carbon Credit Dashboard
+EcoGuard - Policy & Carbon Credit Dashboard
 
 Dashboard for carbon credit developers and policy agencies focused on
 forest protection metrics and verification for carbon credit applications.
@@ -17,7 +17,7 @@ import random
 
 # Set page config
 st.set_page_config(
-    page_title="Acoustic Guardian - Policy Dashboard",
+    page_title="EcoGuard - Policy Dashboard",
     page_icon="🌳",
     layout="wide"
 )
@@ -97,7 +97,7 @@ def generate_carbon_data():
 df_carbon = generate_carbon_data()
 
 # Sidebar
-st.sidebar.title("🌳 Acoustic Guardian")
+st.sidebar.title("🌳 EcoGuard")
 st.sidebar.markdown("### Policy & Carbon Credit Dashboard")
 
 # Dashboard focus
@@ -136,7 +136,7 @@ selected_forests = st.sidebar.multiselect(
 )
 
 # Main dashboard
-st.title("🌳 Acoustic Guardian - Policy & Carbon Credit Analytics")
+st.title("🌳 EcoGuard - Policy & Carbon Credit Analytics")
 st.markdown("### Verified forest protection metrics for carbon credit applications and policy development")
 st.markdown("---")
 
@@ -419,5 +419,5 @@ with col4:
 
 # Footer
 st.markdown("---")
-st.markdown("🌳 Acoustic Guardian - Transparent, verified forest protection for carbon credit development")
+st.markdown("🌳 EcoGuard - Transparent, verified forest protection for carbon credit development")
 st.markdown(f"Reporting period: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")

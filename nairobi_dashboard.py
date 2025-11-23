@@ -1,5 +1,5 @@
 """
-Acoustic Guardian - Nairobi Forest Conservation Dashboard
+EcoGuard - Nairobi Forest Conservation Dashboard
 
 This dashboard focuses on forest conservation efforts in Nairobi and surrounding areas,
 including Karura Forest and other areas affected by deforestation.
@@ -14,23 +14,62 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
 import random
+import os
 
 # Set page config
 st.set_page_config(
-    page_title="Acoustic Guardian - Nairobi Forests",
+    page_title="EcoGuard - Nairobi Forests",
     page_icon="🌳",
     layout="wide"
 )
 
-# Nairobi forest locations with actual coordinates
-FOREST_LOCATIONS = {
-    "Karura Forest": {"lat": -1.2723, "lng": 36.8080, "area_km2": 17.5},
-    "Uhuru Park": {"lat": -1.3037, "lng": 36.8166, "area_km2": 0.6},
-    "Central Park": {"lat": -1.2864, "lng": 36.8172, "area_km2": 0.5},
-    "Jeevanjee Gardens": {"lat": -1.2833, "lng": 36.8222, "area_km2": 0.2},
-    "Ngong Forest": {"lat": -1.3500, "lng": 36.7000, "area_km2": 20.0},
-    "Aberdare Forest": {"lat": -0.4500, "lng": 36.5000, "area_km2": 200.0}
-}
+# Load Kenya forest data
+@st.cache_data
+def load_forest_data():
+    """Load Kenya forest data from CSV file"""
+    if os.path.exists("kenya_forest_locations.csv"):
+        return pd.read_csv("kenya_forest_locations.csv")
+    else:
+        # Fallback to hardcoded data
+        forest_data = {
+            "name": ["Karura Forest", "Uhuru Park", "Ngong Forest", "Aberdare Forest", "Mt. Kenya Forest", "Arboretum Forest", "Kakamega Forest"],
+            "lat": [-1.2723, -1.3037, -1.3500, -0.4500, -0.2500, -0.5300, 0.3000],
+            "lng": [36.8080, 36.8166, 36.7000, 36.5000, 37.7500, 36.5300, 34.7500],
+            "area_km2": [17.5, 0.6, 20.0, 200.0, 150.0, 5.0, 70.0],
+            "type": ["Urban Forest", "Urban Park", "Indigenous Forest", "Mountain Forest", "Mountain Forest", "Indigenous Forest", "Indigenous Forest"]
+        }
+        return pd.DataFrame(forest_data)
+
+# Load deforestation risk model
+@st.cache_data
+def load_risk_data():
+    """Load deforestation risk model data"""
+    if os.path.exists("deforestation_risk_model.csv"):
+        return pd.read_csv("deforestation_risk_model.csv")
+    else:
+        # Fallback to hardcoded data
+        risk_data = {
+            "forest": ["Karura Forest", "Uhuru Park", "Ngong Forest", "Aberdare Forest", "Mt. Kenya Forest", "Kakamega Forest"],
+            "urban_proximity": [0.9, 1.0, 0.7, 0.2, 0.3, 0.4],
+            "accessibility": [0.8, 1.0, 0.7, 0.4, 0.5, 0.6],
+            "historical_loss": [0.3, 0.8, 0.5, 0.2, 0.1, 0.6],
+            "risk_score": [0.67, 0.93, 0.63, 0.27, 0.30, 0.53]
+        }
+        return pd.DataFrame(risk_data)
+
+# Load forest data
+FOREST_DATA = load_forest_data()
+RISK_DATA = load_risk_data()
+
+# Convert to dictionary for easier access
+FOREST_LOCATIONS = {}
+for _, row in FOREST_DATA.iterrows():
+    FOREST_LOCATIONS[row['name']] = {
+        "lat": row['lat'],
+        "lng": row['lng'],
+        "area_km2": row['area_km2'],
+        "type": row['type']
+    }
 
 # Deforestation data for Nairobi region (mock data)
 DEFORESTATION_DATA = [
@@ -77,7 +116,7 @@ def generate_sensor_data():
     return sensors
 
 # Create sidebar
-st.sidebar.title("🌳 Acoustic Guardian")
+st.sidebar.title("🌳 EcoGuard")
 st.sidebar.markdown("### Nairobi Forest Conservation")
 
 # Date range selector
@@ -102,7 +141,7 @@ status_filter = st.sidebar.radio(
 )
 
 # Main dashboard
-st.title("🌳 Acoustic Guardian - Nairobi Forest Conservation Dashboard")
+st.title("🌳 EcoGuard - Nairobi Forest Conservation Dashboard")
 st.markdown("### Monitoring and protecting Nairobi's precious forest ecosystems")
 
 # Key metrics
@@ -154,7 +193,7 @@ with col1:
         color = "green" if forest in selected_forests else "blue"
         folium.Marker(
             location=[coords["lat"], coords["lng"]],
-            popup=f"<b>{forest}</b><br>Area: {coords['area_km2']} km²",
+            popup=f"<b>{forest}</b><br>Area: {coords['area_km2']} km²<br>Type: {coords['type']}",
             tooltip=forest,
             icon=folium.Icon(color=color, icon="tree", prefix='fa')
         ).add_to(m)
@@ -273,6 +312,27 @@ st.dataframe(
     width='stretch'
 )
 
+# Risk Assessment Section
+st.subheader("⚠️ Deforestation Risk Assessment")
+
+# Show risk scores for selected forests
+if selected_forests:
+    risk_filtered = RISK_DATA[RISK_DATA["forest"].isin(selected_forests)]
+    if not risk_filtered.empty:
+        st.dataframe(risk_filtered, width='stretch')
+        
+        # Risk visualization
+        fig_risk = px.bar(
+            risk_filtered,
+            x="forest",
+            y="risk_score",
+            title="Deforestation Risk Scores by Forest",
+            labels={"risk_score": "Risk Score (0-1)", "forest": "Forest"}
+        )
+        st.plotly_chart(fig_risk, width='stretch')
+    else:
+        st.info("No risk data available for selected forests")
+
 # Conservation impact
 st.subheader("🌱 Conservation Impact")
 col1, col2, col3 = st.columns(3)
@@ -300,5 +360,5 @@ with col3:
 
 # Footer
 st.markdown("---")
-st.markdown("🌳 Acoustic Guardian - Protecting Nairobi's forests with AI-powered acoustic monitoring")
+st.markdown("🌳 EcoGuard - Protecting Nairobi's forests with AI-powered acoustic monitoring")
 st.markdown("Data updated daily | Last update: Today")

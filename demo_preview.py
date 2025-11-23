@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Acoustic Guardian - Automated Demo Preview
+EcoGuard - Automated Demo Preview
 
-This script automatically demonstrates the key features of the Acoustic Guardian system.
+This script automatically demonstrates the key features of the EcoGuard system.
 """
 
 import time
@@ -129,7 +129,7 @@ def main():
     print("\n" + "="*60)
     print("🎉 DEMONSTRATION COMPLETE 🎉")
     print("="*60)
-    print("The Acoustic Guardian system provides:")
+    print("The EcoGuard system provides:")
     print("  • Real-time chainsaw detection with >90% accuracy")
     print("  • Instant SMS alerts to rangers")
     print("  • Live dashboard visualization")

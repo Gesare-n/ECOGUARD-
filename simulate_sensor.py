@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Acoustic Guardian - Hardware Simulation Script
+EcoGuard - Hardware Simulation Script
 
 This script simulates the ESP32 hardware sensor by generating threat detection data
 and sending it to InfluxDB and SMS alerts via Twilio, demonstrating the Digital Twin
@@ -136,7 +136,7 @@ def main():
     global start_time
     start_time = time.time()
     
-    print("Acoustic Guardian - Hardware Simulation")
+    print("EcoGuard - Hardware Simulation")
     print("=" * 40)
     print(f"Device ID: {DEVICE_ID}")
     print(f"Location: {SENSOR_LOCATION} ({SENSOR_LATITUDE}, {SENSOR_LONGITUDE})")

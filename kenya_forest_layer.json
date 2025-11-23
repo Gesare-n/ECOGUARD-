@@ -1,0 +1,54 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Kenya Forest Boundaries",
+    "tags": [
+      "kenya-forests",
+      "boundaries"
+    ],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 0,
+    "panels": [
+      {
+        "id": 100,
+        "type": "geomap",
+        "title": "Kenya Gazetted Forests",
+        "gridPos": {
+          "x": 0,
+          "y": 18,
+          "w": 24,
+          "h": 12
+        },
+        "options": {
+          "basemap": {
+            "name": "OpenStreetMap",
+            "type": "osm-standard"
+          },
+          "controls": {
+            "mouseWheelZoom": true,
+            "showAttribution": true,
+            "showZoom": true
+          },
+          "layers": [
+            {
+              "config": {
+                "style": {
+                  "color": {
+                    "fixed": "dark-green"
+                  },
+                  "opacity": 0.6,
+                  "size": {
+                    "fixed": 5
+                  }
+                }
+              },
+              "name": "Gazetted Forests",
+              "type": "markers"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

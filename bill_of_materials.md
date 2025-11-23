@@ -1,4 +1,79 @@
-# Acoustic Guardian - Bill of Materials (BOM)
+# EcoGuard - Digital Hummingbird Bill of Materials
+
+## Overview
+This document lists all components required to build the Digital Hummingbird sensor node, the bird-shaped acoustic monitoring device for forest conservation.
+
+## Core Components
+
+### 1. Computing Platform
+| Component | Quantity | Description | Estimated Cost (USD) |
+|-----------|----------|-------------|---------------------|
+| Raspberry Pi 4 Model B (4GB RAM) | 1 | Main processing unit | $35.00 |
+| MicroSD Card (32GB Class 10) | 1 | Operating system storage | $8.00 |
+| Pi Camera Module v2 | 1 | Visual tree health monitoring | $25.00 |
+| USB Microphone | 1 | Acoustic detection | $15.00 |
+
+### 2. Communication Modules
+| Component | Quantity | Description | Estimated Cost (USD) |
+|-----------|----------|-------------|---------------------|
+| LoRa Module (SX1278) | 1 | Long-range radio communication | $12.00 |
+| Antenna (LoRa) | 1 | 868MHz/915MHz antenna | $5.00 |
+| GSM Module (SIM800L) | 1 | SMS alerts and GPRS backup | $10.00 |
+| Antenna (GSM) | 1 | GSM/4G antenna | $5.00 |
+
+### 3. Power System
+| Component | Quantity | Description | Estimated Cost (USD) |
+|-----------|----------|-------------|---------------------|
+| Solar Panel (10W) | 1 | Renewable energy source | $15.00 |
+| Li-ion Battery (5000mAh) | 1 | Energy storage | $10.00 |
+| Battery Charging Module | 1 | Solar charging controller | $5.00 |
+| Power Management Board | 1 | Voltage regulation | $8.00 |
+
+### 4. Sensors
+| Component | Quantity | Description | Estimated Cost (USD) |
+|-----------|----------|-------------|---------------------|
+| GPS Module (NEO-6M) | 1 | Location tracking | $10.00 |
+| Temperature/Humidity Sensor (DHT22) | 1 | Environmental monitoring | $5.00 |
+
+### 5. Enclosure & Mechanical
+| Component | Quantity | Description | Estimated Cost (USD) |
+|-----------|----------|-------------|---------------------|
+| Transparent Bird-shaped Enclosure | 1 | 3D printed PLA housing | $15.00 |
+| Mounting Hardware | 1 | Screws, standoffs, etc. | $5.00 |
+| Weatherproof Sealing | 1 | Gaskets and seals | $5.00 |
+
+### 6. Miscellaneous
+| Component | Quantity | Description | Estimated Cost (USD) |
+|-----------|----------|-------------|---------------------|
+| Jumper Wires | 1 | Connection wires | $5.00 |
+| Breadboard | 1 | Prototyping board | $3.00 |
+| Resistors/Capacitors | 1 | Various values | $5.00 |
+
+## Tools Required
+- Soldering Iron
+- Wire Strippers
+- Screwdrivers
+- 3D Printer (or access to one)
+- Multimeter
+
+## Total Estimated Cost
+**$208.00** per unit
+
+## Notes
+1. Prices are approximate and may vary based on supplier and location
+2. Bulk purchasing can significantly reduce costs
+3. Some components may already be available in maker spaces or labs
+4. The bird-shaped enclosure can be 3D printed using biodegradable PLA filament to align with environmental values
+
+## Assembly Complexity
+- **Electronics**: Medium (requires basic soldering and wiring skills)
+- **Software**: Medium-High (requires Python programming knowledge)
+- **Enclosure**: Low-Medium (3D printing and basic assembly)
+
+## Scalability
+The design is modular and can be scaled from a single prototype to a network of hundreds of nodes. The LoRa communication allows for a star network topology with one gateway collecting data from multiple nodes.
+
+## EcoGuard - Bill of Materials (BOM)
 
 ## Core Components
 

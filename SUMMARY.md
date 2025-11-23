@@ -1,8 +1,8 @@
-# Acoustic Guardian - Complete MVP Solution
+# EcoGuard - Complete MVP Solution
 
 ## Project Overview
 
-The Acoustic Guardian is an IoT-based acoustic monitoring system designed to detect illegal chainsaw activity in protected forest areas. This solution combines edge computing with machine learning to provide real-time alerts and data visualization for forest rangers and conservationists.
+The EcoGuard is an IoT-based acoustic monitoring system designed to detect illegal chainsaw activity in protected forest areas. This solution combines edge computing with machine learning to provide real-time alerts and data visualization for forest rangers and conservationists.
 
 ## Core Technical Implementation
 
@@ -115,7 +115,7 @@ AcousticGuardian/
 
 ## Versatility Framework
 
-The core Acoustic Guardian platform can be adapted for various conservation applications:
+The core EcoGuard platform can be adapted for various conservation applications:
 
 | Application | Model Retraining | Modified Components |
 |-------------|------------------|---------------------|
@@ -164,6 +164,6 @@ This approach allows teams to focus on demonstrating the "intelligence and visua
 
 ## Conclusion
 
-The Acoustic Guardian MVP provides a complete, deployable solution for real-time chainsaw detection in protected forest areas. By combining proven technologies with innovative AI approaches, this system offers conservationists an effective tool for combating illegal logging activities.
+The EcoGuard MVP provides a complete, deployable solution for real-time chainsaw detection in protected forest areas. By combining proven technologies with innovative AI approaches, this system offers conservationists an effective tool for combating illegal logging activities.
 
 With successful implementation of the end-to-end loop (Sound → SMS → Dashboard), the foundation is established for scaling this technology to protect forests worldwide while maintaining the flexibility to adapt to other conservation challenges.

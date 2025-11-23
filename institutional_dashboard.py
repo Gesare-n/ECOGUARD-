@@ -1,5 +1,5 @@
 """
-Acoustic Guardian - Institutional Dashboard
+EcoGuard - Institutional Dashboard
 
 Professional dashboard for Kenya Forest Service, NGOs, and research institutions
 aligned with Wawa Gatheru's green economy vision.
@@ -17,7 +17,7 @@ import random
 
 # Set page config
 st.set_page_config(
-    page_title="Acoustic Guardian - Institutional Dashboard",
+    page_title="EcoGuard - Institutional Dashboard",
     page_icon="🌳",
     layout="wide"
 )
@@ -83,7 +83,7 @@ def generate_sensor_data():
 sensors = generate_sensor_data()
 
 # Sidebar
-st.sidebar.title("🌳 Acoustic Guardian")
+st.sidebar.title("🌳 EcoGuard")
 st.sidebar.markdown("### Institutional Dashboard")
 
 # Institution selector
@@ -123,7 +123,7 @@ selected_threats = st.sidebar.multiselect(
 )
 
 # Main dashboard
-st.title("🌳 Acoustic Guardian - Institutional Forest Intelligence")
+st.title("🌳 EcoGuard - Institutional Forest Intelligence")
 st.markdown(f"### Real-time monitoring for {selected_institution}")
 st.markdown("---")
 
@@ -386,5 +386,5 @@ with col4:
 
 # Footer
 st.markdown("---")
-st.markdown("🌳 Acoustic Guardian - Empowering Kenya's forest protection ecosystem")
+st.markdown("🌳 EcoGuard - Empowering Kenya's forest protection ecosystem")
 st.markdown(f"Data for {selected_institution} | Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
