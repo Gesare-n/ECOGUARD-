@@ -6,6 +6,12 @@ import plotly.express as px
 from datetime import datetime, timedelta
 import random
 import os
+import sys
+import os
+
+# Add the scripts directory to the path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'scripts'))
+
 import auth
 
 # Import Google Maps API key

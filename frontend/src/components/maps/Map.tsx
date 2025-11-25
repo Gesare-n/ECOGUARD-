@@ -2,6 +2,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { useEffect, useRef } from 'react';
 
 // Fix for default marker icons in React-Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -23,12 +24,25 @@ const ForestMap = () => {
   // Map center (Nairobi, Kenya)
   const center: [number, number] = [-1.2921, 36.8219];
   
+  // Google Maps API key from backend config
+  const googleMapsApiKey = 'AIzaSyACApQn1JG2iuLby7b5rMvkLaho383a42s';
+  
+  const mapRef = useRef<any>(null);
+  
+  useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.setView(center, 11);
+    }
+  }, []);
+  
   return (
     <div className="h-96 w-full rounded-lg overflow-hidden">
-      <MapContainer center={center} zoom={11} style={{ height: '100%', width: '100%' }}>
+      <MapContainer 
+        style={{ height: '100%', width: '100%' }}
+        ref={mapRef}
+      >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url={`https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${googleMapsApiKey}`}
         />
         {sensors.map(sensor => (
           <Marker 

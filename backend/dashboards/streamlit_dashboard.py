@@ -6,6 +6,12 @@ import random
 from datetime import datetime
 import folium
 from streamlit_folium import st_folium
+import sys
+import os
+
+# Add the scripts directory to the path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'scripts'))
+
 import auth
 
 # Set page config
