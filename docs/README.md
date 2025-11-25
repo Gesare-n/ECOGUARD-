@@ -329,4 +329,7 @@ To test the system:
 <img width="511" height="295" alt="image" src="https://github.com/user-attachments/assets/3c59301d-d0d8-4237-b511-13e599c9e1f5" />
 
 <img width="1418" height="747" alt="image" src="https://github.com/user-attachments/assets/d0ddf8bc-9679-4a13-9f9f-cbf8c4c0b4ff" />
+<img width="685" height="693" alt="Screenshot 2025-11-23 112120" src="https://github.com/user-attachments/assets/14254880-6ba8-4fc2-9a0f-ecacd05ac4a2" />
+
+
 
