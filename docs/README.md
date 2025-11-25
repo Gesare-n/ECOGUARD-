@@ -294,17 +294,7 @@ Enhance the Digital Twin with real Kenyan forest data:
 3. Access the dashboard at http://localhost:8508
 4. For Windows users, simply run `run_policy_dashboard.bat`
 
-## Versatility
 
-The core technology can be adapted for other conservation challenges:
-
-| Problem | Required Model Retraining |
-|---------|---------------------------|
-| Poaching | Gunshots, Vehicle Engines |
-| Illegal Fishing | Boat Engines |
-| Wildlife Monitoring | Specific Animal Calls |
-| Fire Detection | Crackling Sounds |
-| Biodiversity Monitoring | Bird Calls, Animal Sounds |
 
 ## Testing
 
@@ -322,3 +312,21 @@ To test the system:
 - Check antenna connection for GSM module
 - Verify InfluxDB credentials and network connectivity
 - For Raspberry Pi implementation, check LoRa antenna and gateway connectivity
+- <img width="1835" height="933" alt="Screenshot 2025-11-25 084522" src="https://github.com/user-attachments/assets/31e5be3e-5727-4e7e-abc6-67c8cd1cfe01" />
+<img width="1822" height="914" alt="Screenshot 2025-11-25 084338" src="https://github.com/user-attachments/assets/fbde4b6a-73c1-4ec0-b1f2-582f4031e7c4" />
+
+<img width="1845" height="910" alt="Screenshot 2025-11-25 084539" src="https://github.com/user-attachments/assets/ca89aa6a-c6b2-4aa6-ab46-8fdbd69c3289" />
+<img width="1820" height="925" alt="Screenshot 2025-11-25 084558" src="https://github.com/user-attachments/assets/6eb42d02-839e-41c6-8637-0e2d3df54e4c" />
+
+<img width="813" height="760" alt="Screenshot 2025-11-25 085416" src="https://github.com/user-attachments/assets/2ce1bf8b-c20f-4bfc-bc05-c5916472bda1" />
+
+<img width="1816" height="911" alt="Screenshot 2025-11-25 101344" src="https://github.com/user-attachments/assets/e3f55788-8060-4775-9790-aa35120b252d" />
+
+<img width="1801" height="910" alt="Screenshot 2025-11-25 101359" src="https://github.com/user-attachments/assets/76452822-6d14-4b48-af1f-8c4d5fb0383c" />
+
+<img width="1828" height="709" alt="Screenshot 2025-11-25 101607" src="https://github.com/user-attachments/assets/5c751611-f6f6-4283-ac87-3f97f398ec02" />
+
+<img width="511" height="295" alt="image" src="https://github.com/user-attachments/assets/3c59301d-d0d8-4237-b511-13e599c9e1f5" />
+
+<img width="1418" height="747" alt="image" src="https://github.com/user-attachments/assets/d0ddf8bc-9679-4a13-9f9f-cbf8c4c0b4ff" />
+
