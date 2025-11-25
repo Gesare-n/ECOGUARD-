@@ -1,0 +1,19 @@
+{
+"type": "FeatureCollection",
+"name": "kenya_forests",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Karura Forest", "lat": -1.2723, "lng": 36.808, "area_km2": 17.5, "type": "Urban Forest" }, "geometry": { "type": "Point", "coordinates": [ 36.808, -1.2723 ] } },
+{ "type": "Feature", "properties": { "name": "Uhuru Park", "lat": -1.3037, "lng": 36.8166, "area_km2": 0.6, "type": "Urban Park" }, "geometry": { "type": "Point", "coordinates": [ 36.8166, -1.3037 ] } },
+{ "type": "Feature", "properties": { "name": "Ngong Forest", "lat": -1.35, "lng": 36.7, "area_km2": 20.0, "type": "Indigenous Forest" }, "geometry": { "type": "Point", "coordinates": [ 36.7, -1.35 ] } },
+{ "type": "Feature", "properties": { "name": "Aberdare Forest", "lat": -0.45, "lng": 36.5, "area_km2": 200.0, "type": "Mountain Forest" }, "geometry": { "type": "Point", "coordinates": [ 36.5, -0.45 ] } },
+{ "type": "Feature", "properties": { "name": "Mt. Kenya Forest", "lat": -0.25, "lng": 37.75, "area_km2": 150.0, "type": "Mountain Forest" }, "geometry": { "type": "Point", "coordinates": [ 37.75, -0.25 ] } },
+{ "type": "Feature", "properties": { "name": "Arboretum Forest", "lat": -0.53, "lng": 36.53, "area_km2": 5.0, "type": "Indigenous Forest" }, "geometry": { "type": "Point", "coordinates": [ 36.53, -0.53 ] } },
+{ "type": "Feature", "properties": { "name": "Kakamega Forest", "lat": 0.3, "lng": 34.75, "area_km2": 70.0, "type": "Indigenous Forest" }, "geometry": { "type": "Point", "coordinates": [ 34.75, 0.3 ] } },
+{ "type": "Feature", "properties": { "name": "Mau Forest", "lat": -0.5, "lng": 35.5, "area_km2": 400.0, "type": "Indigenous Forest" }, "geometry": { "type": "Point", "coordinates": [ 35.5, -0.5 ] } },
+{ "type": "Feature", "properties": { "name": "Chyulu Hills Forest", "lat": -2.5, "lng": 38.0, "area_km2": 150.0, "type": "Indigenous Forest" }, "geometry": { "type": "Point", "coordinates": [ 38.0, -2.5 ] } },
+{ "type": "Feature", "properties": { "name": "Taita Hills Forest", "lat": -3.5, "lng": 38.5, "area_km2": 25.0, "type": "Indigenous Forest" }, "geometry": { "type": "Point", "coordinates": [ 38.5, -3.5 ] } },
+{ "type": "Feature", "properties": { "name": "Mount Elgon Forest", "lat": 1.0, "lng": 34.5, "area_km2": 120.0, "type": "Mountain Forest" }, "geometry": { "type": "Point", "coordinates": [ 34.5, 1.0 ] } },
+{ "type": "Feature", "properties": { "name": "Mathews Range Forest", "lat": 0.5, "lng": 38.0, "area_km2": 80.0, "type": "Indigenous Forest" }, "geometry": { "type": "Point", "coordinates": [ 38.0, 0.5 ] } }
+]
+}

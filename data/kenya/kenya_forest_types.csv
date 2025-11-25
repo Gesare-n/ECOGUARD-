@@ -1,0 +1,11 @@
+FRID,FOREST,lat,lng,area_km2,type
+F001,Aberdare Forest,-0.45,36.5,200.0,Mountain Forest
+F002,Mt. Kenya Forest,-0.25,37.75,150.0,Mountain Forest
+F003,Mau Forest,-0.5,35.5,400.0,Indigenous Forest
+F004,Kakamega Forest,0.3,34.75,70.0,Indigenous Forest
+F005,Mount Elgon Forest,1.0,34.5,120.0,Mountain Forest
+F006,Arboretum Forest,-0.53,36.53,5.0,Indigenous Forest
+F007,Chyulu Hills Forest,-2.5,38.0,150.0,Indigenous Forest
+F008,Taita Hills Forest,-3.5,38.5,25.0,Indigenous Forest
+F009,Mathews Range Forest,0.5,38.0,80.0,Indigenous Forest
+F010,Ngong Forest,-1.35,36.7,20.0,Indigenous Forest

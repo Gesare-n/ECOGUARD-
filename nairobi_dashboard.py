@@ -1,364 +1,140 @@
 """
-EcoGuard - Nairobi Forest Conservation Dashboard
+Acoustic Guardian - Streamlit Dashboard Demo
 
-This dashboard focuses on forest conservation efforts in Nairobi and surrounding areas,
-including Karura Forest and other areas affected by deforestation.
+This script demonstrates how the Streamlit dashboard integrates with the 
+overall Acoustic Guardian system.
 """
 
 import streamlit as st
-import pandas as pd
-import numpy as np
-import folium
-from streamlit_folium import st_folium
-import plotly.express as px
-import plotly.graph_objects as go
-from datetime import datetime, timedelta
-import random
-import os
+import time
 
-# Set page config
-st.set_page_config(
-    page_title="EcoGuard - Nairobi Forests",
-    page_icon="🌳",
-    layout="wide"
-)
-
-# Load Kenya forest data
-@st.cache_data
-def load_forest_data():
-    """Load Kenya forest data from CSV file"""
-    if os.path.exists("kenya_forest_locations.csv"):
-        return pd.read_csv("kenya_forest_locations.csv")
-    else:
-        # Fallback to hardcoded data
-        forest_data = {
-            "name": ["Karura Forest", "Uhuru Park", "Ngong Forest", "Aberdare Forest", "Mt. Kenya Forest", "Arboretum Forest", "Kakamega Forest"],
-            "lat": [-1.2723, -1.3037, -1.3500, -0.4500, -0.2500, -0.5300, 0.3000],
-            "lng": [36.8080, 36.8166, 36.7000, 36.5000, 37.7500, 36.5300, 34.7500],
-            "area_km2": [17.5, 0.6, 20.0, 200.0, 150.0, 5.0, 70.0],
-            "type": ["Urban Forest", "Urban Park", "Indigenous Forest", "Mountain Forest", "Mountain Forest", "Indigenous Forest", "Indigenous Forest"]
-        }
-        return pd.DataFrame(forest_data)
-
-# Load deforestation risk model
-@st.cache_data
-def load_risk_data():
-    """Load deforestation risk model data"""
-    if os.path.exists("deforestation_risk_model.csv"):
-        return pd.read_csv("deforestation_risk_model.csv")
-    else:
-        # Fallback to hardcoded data
-        risk_data = {
-            "forest": ["Karura Forest", "Uhuru Park", "Ngong Forest", "Aberdare Forest", "Mt. Kenya Forest", "Kakamega Forest"],
-            "urban_proximity": [0.9, 1.0, 0.7, 0.2, 0.3, 0.4],
-            "accessibility": [0.8, 1.0, 0.7, 0.4, 0.5, 0.6],
-            "historical_loss": [0.3, 0.8, 0.5, 0.2, 0.1, 0.6],
-            "risk_score": [0.67, 0.93, 0.63, 0.27, 0.30, 0.53]
-        }
-        return pd.DataFrame(risk_data)
-
-# Load forest data
-FOREST_DATA = load_forest_data()
-RISK_DATA = load_risk_data()
-
-# Convert to dictionary for easier access
-FOREST_LOCATIONS = {}
-for _, row in FOREST_DATA.iterrows():
-    FOREST_LOCATIONS[row['name']] = {
-        "lat": row['lat'],
-        "lng": row['lng'],
-        "area_km2": row['area_km2'],
-        "type": row['type']
-    }
-
-# Deforestation data for Nairobi region (mock data)
-DEFORESTATION_DATA = [
-    {"year": 2015, "area_hectares": 1200, "location": "Karura Forest", "cause": "Urban Expansion"},
-    {"year": 2016, "area_hectares": 950, "location": "Karura Forest", "cause": "Illegal Logging"},
-    {"year": 2017, "area_hectares": 780, "location": "Karura Forest", "cause": "Agriculture"},
-    {"year": 2018, "area_hectares": 620, "location": "Karura Forest", "cause": "Infrastructure"},
-    {"year": 2019, "area_hectares": 510, "location": "Karura Forest", "cause": "Urban Expansion"},
-    {"year": 2020, "area_hectares": 430, "location": "Karura Forest", "cause": "Illegal Logging"},
-    {"year": 2021, "area_hectares": 320, "location": "Karura Forest", "cause": "Agriculture"},
-    {"year": 2022, "area_hectares": 210, "location": "Karura Forest", "cause": "Conservation Efforts"},
-    {"year": 2023, "area_hectares": 150, "location": "Karura Forest", "cause": "Conservation Efforts"},
-    {"year": 2024, "area_hectares": 90, "location": "Karura Forest", "cause": "Conservation Efforts"},
-    {"year": 2015, "area_hectares": 800, "location": "Ngong Forest", "cause": "Urban Expansion"},
-    {"year": 2016, "area_hectares": 720, "location": "Ngong Forest", "cause": "Charcoal Production"},
-    {"year": 2017, "area_hectares": 650, "location": "Ngong Forest", "cause": "Agriculture"},
-    {"year": 2018, "area_hectares": 580, "location": "Ngong Forest", "cause": "Settlements"},
-    {"year": 2019, "area_hectares": 490, "location": "Ngong Forest", "cause": "Urban Expansion"},
-    {"year": 2020, "area_hectares": 410, "location": "Ngong Forest", "cause": "Charcoal Production"},
-    {"year": 2021, "area_hectares": 330, "location": "Ngong Forest", "cause": "Agriculture"},
-    {"year": 2022, "area_hectares": 260, "location": "Ngong Forest", "cause": "Conservation Efforts"},
-    {"year": 2023, "area_hectares": 180, "location": "Ngong Forest", "cause": "Conservation Efforts"},
-    {"year": 2024, "area_hectares": 120, "location": "Ngong Forest", "cause": "Conservation Efforts"}
-]
-
-# Mock sensor data for demonstration
-def generate_sensor_data():
-    # Set seed for consistent data generation
-    random.seed(42)
-    sensors = []
-    for i, (forest, coords) in enumerate(FOREST_LOCATIONS.items()):
-        sensor = {
-            "id": f"AG-{str(i+1).zfill(3)}",
-            "forest": forest,
-            "lat": coords["lat"],
-            "lng": coords["lng"],
-            "status": random.choice(["🟢 Active", "🟡 Warning", "🔴 Offline"]),
-            "battery": round(random.uniform(70, 100), 1),
-            "signal": random.randint(-80, -50),
-            "last_detection": random.choice([None, "Chainsaw", "Vehicle", "None"]),
-            "detections_today": random.randint(0, 5)
-        }
-        sensors.append(sensor)
-    return sensors
-
-# Create sidebar
-st.sidebar.title("🌳 EcoGuard")
-st.sidebar.markdown("### Nairobi Forest Conservation")
-
-# Date range selector
-st.sidebar.subheader("📅 Date Range")
-start_date = st.sidebar.date_input("Start Date", datetime.now() - timedelta(days=30))
-end_date = st.sidebar.date_input("End Date", datetime.now())
-
-# Forest selector
-st.sidebar.subheader("Forest Selection")
-selected_forests = st.sidebar.multiselect(
-    "Select Forests",
-    list(FOREST_LOCATIONS.keys()),
-    default=["Karura Forest", "Ngong Forest"]
-)
-
-# Sensor status filter
-st.sidebar.subheader("📡 Sensor Status")
-status_filter = st.sidebar.radio(
-    "Filter by Status",
-    ["All", "Active", "Warning", "Offline"],
-    index=0
-)
-
-# Main dashboard
-st.title("🌳 EcoGuard - Nairobi Forest Conservation Dashboard")
-st.markdown("### Monitoring and protecting Nairobi's precious forest ecosystems")
-
-# Key metrics
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.metric(
-        label="Active Sensors", 
-        value="6", 
-        delta="2 new this month"
-    )
-
-with col2:
-    st.metric(
-        label="Detections Today", 
-        value="12",
-        delta="↓ 3 from yesterday"
-    )
-
-with col3:
-    st.metric(
-        label="Protected Area", 
-        value="238.8 km²",
-        delta="↑ 12 km² conserved"
-    )
-
-with col4:
-    st.metric(
-        label="Deforestation (2024)", 
-        value="210 ha",
-        delta="↓ 45% from 2020"
-    )
-
-# Map and sensor status
-col1, col2 = st.columns([3, 2])
-
-with col1:
-    st.subheader("📍 Forest Locations & Sensor Network")
-    
-    # Create map centered on Nairobi
-    m = folium.Map(
-        location=[-1.2921, 36.8219],  # Center of Nairobi
-        zoom_start=11,
-        tiles='OpenStreetMap'
+def main():
+    st.set_page_config(
+        page_title="Acoustic Guardian - Streamlit Demo",
+        page_icon="🌳",
+        layout="centered"
     )
     
-    # Add forest markers
-    for forest, coords in FOREST_LOCATIONS.items():
-        color = "green" if forest in selected_forests else "blue"
-        folium.Marker(
-            location=[coords["lat"], coords["lng"]],
-            popup=f"<b>{forest}</b><br>Area: {coords['area_km2']} km²<br>Type: {coords['type']}",
-            tooltip=forest,
-            icon=folium.Icon(color=color, icon="tree", prefix='fa')
-        ).add_to(m)
+    st.title("Acoustic Guardian - Streamlit Integration")
+    st.markdown("### Demonstrating the Power of Streamlit for Conservation Technology")
+    
+    # Introduction
+    st.markdown("""
+    The Acoustic Guardian system leverages Streamlit to provide:
+    
+    1. **Real-time Data Visualization** - Interactive maps and metrics
+    2. **Sensor Monitoring** - Live status of all deployed devices
+    3. **Threat Detection Timeline** - Historical view of all detections
+    4. **Strategic Layer Integration** - Deforestation risk zones and protected areas
+    5. **Mobile-Responsive Design** - Accessible on any device
+    """)
+    
+    # System Architecture
+    st.subheader("📊 System Architecture")
+    st.markdown("""
+    ```
+    Hardware Sensors (ESP32 + Microphone)
+                ↓
+         Data Processing (Edge Impulse)
+                ↓
+        Communication (GSM/GPRS)
+                ↓
+         Cloud Storage (InfluxDB)
+                ↓
+      Streamlit Dashboard (Real-time Visualization)
+                ↓
+         Ranger Notification (SMS Alerts)
+    ```
+    """)
+    
+    # Key Features
+    st.subheader("✨ Key Dashboard Features")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("**Real-time Map**")
+        st.image("https://placehold.co/300x200?text=Interactive+Map", width=300)
+        st.markdown("- Live sensor locations")
+        st.markdown("- Threat hotspot visualization")
+        st.markdown("- Strategic conservation layers")
         
-        # Add sensor markers
-        # Simulate sensors around each forest
-        for i in range(3):
-            sensor_lat = coords["lat"] + random.uniform(-0.01, 0.01)
-            sensor_lng = coords["lng"] + random.uniform(-0.01, 0.01)
-            
-            # Randomly determine if this sensor detected something
-            detection = random.choice([True, False, False])  # 33% chance of detection
-            
-            if detection:
-                folium.CircleMarker(
-                    location=[sensor_lat, sensor_lng],
-                    radius=8,
-                    popup=f"Sensor AG-{random.randint(100, 999)}<br>Detection: Chainsaw",
-                    color='red',
-                    fill=True,
-                    fillColor='red'
-                ).add_to(m)
-            else:
-                folium.CircleMarker(
-                    location=[sensor_lat, sensor_lng],
-                    radius=6,
-                    popup=f"Sensor AG-{random.randint(100, 999)}<br>Status: Active",
-                    color='green',
-                    fill=True,
-                    fillColor='green'
-                ).add_to(m)
+        st.markdown("**System Metrics**")
+        st.image("https://placehold.co/300x100?text=Metrics+Dashboard", width=300)
+        st.markdown("- Detection counts")
+        st.markdown("- Time safe tracking")
+        st.markdown("- Device status monitoring")
     
-    # Display map
-    st_folium(m, width=700, height=500)
-
-with col2:
-    st.subheader("📡 Sensor Status")
-    
-    # Generate sensor data
-    sensors = generate_sensor_data()
-    
-    # Filter sensors based on sidebar selection
-    if status_filter != "All":
-        status_map = {"Active": "🟢 Active", "Warning": "🟡 Warning", "Offline": "🔴 Offline"}
-        sensors = [s for s in sensors if s["status"] == status_map[status_filter]]
-    
-    # Display sensor table
-    sensor_df = pd.DataFrame(sensors)
-    sensor_display_df = pd.DataFrame()
-    sensor_display_df["Sensor ID"] = sensor_df["id"]
-    sensor_display_df["Forest"] = sensor_df["forest"]
-    sensor_display_df["Status"] = sensor_df["status"]
-    sensor_display_df["Battery %"] = sensor_df["battery"]
-    sensor_display_df["Detections"] = sensor_df["detections_today"]
-    st.dataframe(
-        sensor_display_df,
-        width='stretch',
-        hide_index=True
-    )
-    
-    # Battery level chart
-    st.subheader("🔋 Battery Levels")
-    fig_battery = px.bar(
-        sensor_df,
-        x="id",
-        y="battery",
-        color="status",
-        title="Sensor Battery Levels",
-        labels={"id": "Sensor ID", "battery": "Battery Level (%)"}
-    )
-    st.plotly_chart(fig_battery, width='stretch')
-
-# Deforestation analysis
-st.subheader("📉 Deforestation Analysis")
-
-# Filter deforestation data based on selected date range
-df_deforest = pd.DataFrame(DEFORESTATION_DATA)
-start_year = start_date.year
-end_year = end_date.year
-df_filtered = df_deforest[(df_deforest["year"] >= start_year) & (df_deforest["year"] <= end_year)]
-
-# Deforestation trend chart
-col1, col2 = st.columns(2)
-
-with col1:
-    fig_trend = px.line(
-        df_filtered,
-        x="year",
-        y="area_hectares",
-        color="location",
-        title="Deforestation Trend Over Time",
-        labels={"year": "Year", "area_hectares": "Area (Hectares)"}
-    )
-    st.plotly_chart(fig_trend, width='stretch')
-
-with col2:
-    # Deforestation by cause
-    cause_data = df_filtered.groupby("cause")["area_hectares"].sum().reset_index()
-    fig_cause = px.pie(
-        cause_data,
-        values="area_hectares",
-        names="cause",
-        title="Deforestation Causes"
-    )
-    st.plotly_chart(fig_cause, width='stretch')
-
-# Detailed deforestation data table
-st.subheader("📋 Detailed Deforestation Data")
-df_display = pd.DataFrame()
-df_display["Year"] = df_filtered["year"]
-df_display["Location"] = df_filtered["location"]
-df_display["Area Affected (ha)"] = df_filtered["area_hectares"]
-df_display["Primary Cause"] = df_filtered["cause"]
-st.dataframe(
-    df_display,
-    width='stretch'
-)
-
-# Risk Assessment Section
-st.subheader("⚠️ Deforestation Risk Assessment")
-
-# Show risk scores for selected forests
-if selected_forests:
-    risk_filtered = RISK_DATA[RISK_DATA["forest"].isin(selected_forests)]
-    if not risk_filtered.empty:
-        st.dataframe(risk_filtered, width='stretch')
+    with col2:
+        st.markdown("**Detection History**")
+        st.image("https://placehold.co/300x150?text=Detection+Timeline", width=300)
+        st.markdown("- Chronological view of threats")
+        st.markdown("- Confidence levels")
+        st.markdown("- Location tracking")
         
-        # Risk visualization
-        fig_risk = px.bar(
-            risk_filtered,
-            x="forest",
-            y="risk_score",
-            title="Deforestation Risk Scores by Forest",
-            labels={"risk_score": "Risk Score (0-1)", "forest": "Forest"}
-        )
-        st.plotly_chart(fig_risk, width='stretch')
-    else:
-        st.info("No risk data available for selected forests")
+        st.markdown("**Strategic Insights**")
+        st.image("https://placehold.co/300x150?text=Conservation+Layers", width=300)
+        st.markdown("- Deforestation risk zones")
+        st.markdown("- Protected area boundaries")
+        st.markdown("- Reforestation projects")
+    
+    # Benefits of Streamlit
+    st.subheader("🚀 Benefits of Using Streamlit")
+    st.markdown("""
+    - **Rapid Development**: Build interactive dashboards in minutes
+    - **Python Native**: No web development skills required
+    - **Real-time Updates**: Live data streaming capabilities
+    - **Mobile Responsive**: Works on desktops, tablets, and phones
+    - **Easy Deployment**: Simple hosting options available
+    - **Open Source**: No licensing costs
+    """)
+    
+    # Demo Controls
+    st.subheader("🎮 Interactive Demo")
+    
+    if st.button("🚀 Launch Full Dashboard"):
+        st.info("In a complete implementation, this would open the full Streamlit dashboard.")
+        st.markdown("To run the dashboard locally:")
+        st.code("""
+        1. Install requirements: pip install -r requirements.txt
+        2. Run the dashboard: streamlit run streamlit_dashboard.py
+        3. Open browser to http://localhost:8501
+        """, language="bash")
+    
+    # Simulation Controls
+    st.subheader("🧪 Simulation Controls")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        if st.button("🚨 Simulate Detection"):
+            st.success("Chainsaw detection simulated!")
+            st.info("In the full dashboard, this would:")
+            st.markdown("- Update the map with a red hotspot")
+            st.markdown("- Reset the 'Time Safe' counter")
+            st.markdown("- Add entry to detection history")
+            st.markdown("- Potentially trigger SMS alerts")
+    
+    with col2:
+        if st.button("💚 Send Heartbeat"):
+            st.success("Device heartbeat sent!")
+            st.info("In the full dashboard, this would:")
+            st.markdown("- Update device status indicators")
+            st.markdown("- Increment 'Time Safe' counter")
+            st.markdown("- Log system health metrics")
+    
+    with col3:
+        if st.button("🔄 Reset System"):
+            st.success("System reset!")
+            st.info("In the full dashboard, this would:")
+            st.markdown("- Clear detection history")
+            st.markdown("- Reset all counters")
+            st.markdown("- Return to baseline state")
+    
+    # Footer
+    st.markdown("---")
+    st.markdown("🌳 Acoustic Guardian - Protecting forests with AI-powered acoustic monitoring")
+    st.markdown("Built with Streamlit for rapid visualization and real-time insights")
 
-# Conservation impact
-st.subheader("🌱 Conservation Impact")
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.metric(
-        label="Trees Planted (2024)", 
-        value="15,000",
-        delta="↑ 25% from 2023"
-    )
-
-with col2:
-    st.metric(
-        label="Community Involvement", 
-        value="2,450",
-        delta="↑ 18% from 2023"
-    )
-
-with col3:
-    st.metric(
-        label="Protected Species", 
-        value="34",
-        delta="↑ 3 new species"
-    )
-
-# Footer
-st.markdown("---")
-st.markdown("🌳 EcoGuard - Protecting Nairobi's forests with AI-powered acoustic monitoring")
-st.markdown("Data updated daily | Last update: Today")
+if __name__ == "__main__":
+    main()

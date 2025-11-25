@@ -23,24 +23,24 @@ An acoustic monitoring system for detecting chainsaw activity in protected fores
 ### Traditional ESP32 Architecture
 EcoGuard
 [INMP441 Microphone] → [ESP32] → [Edge Impulse Model] → [Detection Logic]
-                                    ↓
-                        [SIM800L GSM Module] → SMS Alert
-                                    ↓
-                        [InfluxDB Cloud] → Data Logging
-                                    ↓
-            [Grafana Dashboard] ↔ [Streamlit Dashboard] → Visualization
+                                   ↓
+                       [SIM800L GSM Module] → SMS Alert
+                                   ↓
+                       [InfluxDB Cloud] → Data Logging
+                                   ↓
+           [Grafana Dashboard] ↔ [Streamlit Dashboard] → Visualization
 EcoGuard
 
 ### Raspberry Pi "Digital Hummingbird" Architecture
 EcoGuard
 [USB Microphone] → [Raspberry Pi] → [TensorFlow Lite Model] → [Acoustic Detection]
 [Pi Camera] → [Raspberry Pi] → [TensorFlow Lite Model] → [Tree Health Monitoring]
-                                    ↓
-                        [LoRa Module] → [LoRa Gateway] → [InfluxDB Cloud]
-                                    ↓
-                        [SIM800L GSM Module] → SMS Alert
-                                    ↓
-            [Grafana Dashboard] ↔ [Streamlit Dashboard] → Visualization
+                                   ↓
+                       [LoRa Module] → [LoRa Gateway] → [InfluxDB Cloud]
+                                   ↓
+                       [SIM800L GSM Module] → SMS Alert
+                                   ↓
+           [Grafana Dashboard] ↔ [Streamlit Dashboard] → Visualization
 EcoGuard
 
 ## Features
@@ -55,6 +55,106 @@ EcoGuard
 8. **Tree Survival Rate Tracking**: Visual AI tracks planted sapling health and survival rates
 9. **LoRa Hybrid Communication**: Redundant data transmission with LoRa for bulk data and GSM for critical alerts
 10. **Bird-shaped Enclosure**: Transparent, aesthetically pleasing design that aligns with the "Hummingbird" narrative
+
+## Enhanced Authentication System
+
+The EcoGuard system now includes a role-based authentication system with three user types:
+
+1. **Forest Ranger** - Basic monitoring access for field personnel
+2. **Regional Manager** - Extended access with reporting capabilities
+3. **Super User** - Full system access including user management
+
+### Default Credentials
+
+- Forest Ranger: username `ranger1`, password `password`
+- Regional Manager: username `manager1`, password `password`
+- Super User: username `admin`, password `password`
+
+### Running the Enhanced System
+
+To run the enhanced dashboard with authentication:
+
+```bash
+# Using the batch file (Windows)
+run_enhanced_dashboard.bat
+
+# Or directly with Streamlit
+streamlit run app.py
+```
+
+The system will automatically redirect unauthenticated users to the login page.
+
+## Unified Access Point
+
+All EcoGuard services can be accessed from a single localhost entry point:
+
+- **Modern React Frontend**: http://localhost:8080
+- **API Server**: http://localhost:5000
+- **Streamlit Dashboards**: Various ports (8501-8507)
+
+### Starting All Services
+
+1. Start the API server:
+   ```bash
+   python api_endpoints.py
+   ```
+
+2. Start the frontend development server:
+   ```bash
+   cd frontend
+   npx vite --port 8080
+   ```
+
+3. Start all Streamlit dashboards:
+   ```bash
+   run_all_dashboards.bat
+   ```
+
+### Accessing Services
+
+Once all services are running:
+
+1. **Modern Interface**: Visit http://localhost:8080 to access the new React frontend
+   - Log in with any of the default credentials
+   - Navigate to "Legacy Dashboards" to access Streamlit dashboards
+
+2. **Direct Dashboard Access**:
+   - Main Dashboard: http://localhost:8501
+   - Institutional Dashboard: http://localhost:8502
+   - Policy Dashboard: http://localhost:8503
+   - Research Dashboard: http://localhost:8504
+   - Nairobi Dashboard: http://localhost:8505
+   - Enhanced Dashboard: http://localhost:8506
+   - Super User Dashboard: http://localhost:8507
+
+### Troubleshooting Proxy Issues
+
+If you're experiencing issues with the proxy not working correctly:
+
+1. **Check Vite Configuration**: Ensure `vite.config.ts` is in the `frontend` directory with the correct proxy settings:
+   ```typescript
+   export default defineConfig({
+     server: {
+       host: "localhost",
+       port: 8080,
+       proxy: {
+         '/api': {
+           target: 'http://localhost:5000',
+           changeOrigin: true,
+           secure: false,
+         }
+       }
+     }
+   });
+   ```
+
+2. **Restart Services**: Stop all running services and restart them in order:
+   - API server (port 5000)
+   - Frontend development server (port 8080)
+
+3. **Test API Directly**: Verify the API server is working by accessing http://localhost:5000/api/auth/login directly
+
+4. **Check Network**: Ensure no firewall is blocking the connections between services
 
 ## Setup Instructions
 

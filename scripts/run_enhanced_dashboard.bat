@@ -1,0 +1,3 @@
+@echo off
+echo Starting EcoGuard Enhanced Dashboard...
+streamlit run app.py

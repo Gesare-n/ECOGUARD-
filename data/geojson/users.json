@@ -1,0 +1,44 @@
+{
+  "ranger1": {
+    "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "role": "forest_ranger",
+    "name": "John Ranger",
+    "region": "Nairobi",
+    "last_login": "2025-11-24T17:52:51.141484"
+  },
+  "manager1": {
+    "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "role": "regional_manager",
+    "name": "Sarah Manager",
+    "region": "Central Kenya",
+    "last_login": null
+  },
+  "admin": {
+    "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "role": "super_user",
+    "name": "System Administrator",
+    "region": "All Regions",
+    "last_login": null
+  },
+  "testuser": {
+    "password_hash": "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
+    "role": "forest_ranger",
+    "name": "Test User",
+    "region": "Nairobi",
+    "last_login": null
+  },
+  "testuser2": {
+    "password_hash": "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
+    "role": "forest_ranger",
+    "name": "Test User 2",
+    "region": "Nairobi",
+    "last_login": null
+  },
+  "newtestuser": {
+    "password_hash": "13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c",
+    "role": "regional_manager",
+    "name": "New Test User",
+    "region": "Central",
+    "last_login": null
+  }
+}
