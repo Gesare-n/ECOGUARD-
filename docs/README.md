@@ -1,5 +1,8 @@
 # EcoGuard - Digital Hummingbird
 
+https://youtu.be/rtMg0xbUUyo
+
+
 An acoustic monitoring system for detecting chainsaw activity in protected forest areas using AI on the edge with Telegram alerts and cloud data logging. Enhanced with Raspberry Pi, LoRa communication, and visual tree health monitoring in a bird-shaped enclosure.
 
 ## Hardware Components
@@ -7,10 +10,7 @@ An acoustic monitoring system for detecting chainsaw activity in protected fores
 ### Raspberry Pi "Digital Hummingbird" Implementation
 1. **Raspberry Pi 4 Model B** - Main processing unit
 2. **USB Microphone** - Audio capture for acoustic detection
-3. **Pi Camera Module v2** - Visual tree health monitoring
-4. **LoRa Module (SX1278)** - Long-range radio communication
-5. **SIM800L GSM Module** - SMS alerts and GPRS backup
-6. **Solar Power System** - Renewable energy source
+   
 7. **Transparent Bird-shaped Enclosure** - 3D printed PLA housing
 
 ## System Architecture
